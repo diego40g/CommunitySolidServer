@@ -47,14 +47,15 @@ const TRY_READ = `
   return redis.call("incr", KEYS[0]..".count")
 `;
 
+// see https://redis.io/commands/set/
 const TRY_WRITE = `
   -- Return 0 if an entry already exists.
-  if (redis.call("exists", KEYS[0]..".lock") == 1) or (redis.call("get", KEYS[0]..".count" > 0)) then
+  if (redis.call("exists", KEYS[0]..".lock") == 1) or (tonumber(redis.call("get", KEYS[0]..".count")) > 0) then
     return 0
   end
   
-  -- Increase count
-  return redis.call("set", KEYS[0]..".lock")
+  -- Set lock
+  return redis.call("set", KEYS[0]..".lock", "locked");
 `;
 
 const suffixes: GreedyReadWriteSuffixes = { count: 'count', read: 'read', write: 'write' };
