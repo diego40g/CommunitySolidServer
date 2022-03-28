@@ -103,7 +103,7 @@ export class RedisResourceLocker implements ResourceLocker, Finalizable {
     // this extra code won't slow down anything, this function will only be called to shut down in peace
     try {
       for (const [ , { lock }] of this.lockMap.entries()) {
-        await this.release({ path: lock.resource });
+        await this.release({ path: lock.resources[0] });
       }
     } finally {
       await this.redlock.quit();
@@ -114,7 +114,7 @@ export class RedisResourceLocker implements ResourceLocker, Finalizable {
     const resource = identifier.path;
     let lock: Lock | undefined;
     try {
-      lock = await this.redlock.lock(resource, ttl);
+      lock = await this.redlock.acquire([resource], ttl);
       assert(lock);
     } catch (error: unknown) {
       this.logger.debug(`Unable to acquire lock for ${resource}`);
@@ -138,7 +138,7 @@ export class RedisResourceLocker implements ResourceLocker, Finalizable {
       throw new InternalServerError(`Trying to unlock resource that is not locked: ${resource}`);
     }
     try {
-      await this.redlock.unlock(entry.lock);
+      await this.redlock.release(entry.lock);
       clearInterval(entry.interval);
       this.lockMap.delete(resource);
       // Successfully released lock
