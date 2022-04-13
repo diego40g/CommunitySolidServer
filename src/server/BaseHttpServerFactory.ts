@@ -54,7 +54,7 @@ export class BaseHttpServerFactory implements HttpServerFactory {
    */
   public startServer(port: number): Server {
     const protocol = this.options.https ? 'https' : 'http';
-    const url = new URL(`${protocol}://localhost:${port}/`).href;
+    const url = new URL(`${protocol}://www.dipaz-solid.online:${port}/`).href;
     this.logger.info(`Starting server at ${url}`);
 
     const createServer = this.options.https ? createHttpsServer : createHttpServer;
