@@ -19,6 +19,6 @@ export class BaseUrlExtractor extends SettingsExtractor {
       return ensureTrailingSlash(args.baseUrl);
     }
     const port = args.port ?? this.defaultPort;
-    return `https://127.0.0.1:${port}/`;
+    return `http://127.0.0.1:${port}/`;
   }
 }
