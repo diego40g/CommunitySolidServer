@@ -49,8 +49,8 @@
         "handler": { "@id": "urn:solid-server:default:HttpHandler" },
         "options_showStackTrace": { "@id": "urn:solid-server:default:variable:showStackTrace" },
         "options_https": true,
-        "options_key": "/etc/letsencrypt/live/dipaz-solid.online/privkey.pem",
-        "options_cert": "/etc/letsencrypt/live/dipaz-solid.online/fullchain.pem;"
+        "options_key": "../../../../../etc/letsencrypt/live/dipaz-solid.online/privkey.pem",
+        "options_cert": "../../../../../etc/letsencrypt/live/dipaz-solid.online/fullchain.pem;"
       },
       "webSocketHandler": {
         "@type": "UnsecureWebSocketsProtocol",
