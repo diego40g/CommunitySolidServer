@@ -19,6 +19,6 @@ export class BaseUrlExtractor extends SettingsExtractor {
       return ensureTrailingSlash(args.baseUrl);
     }
     const port = args.port ?? this.defaultPort;
-    return `https://dipaz-solid.online:${port}/`;
+    return `http://localhost:${port}/`;
   }
 }
