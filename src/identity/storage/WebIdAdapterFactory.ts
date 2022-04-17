@@ -45,7 +45,7 @@ export class WebIdAdapter implements Adapter {
     if (!payload && this.name === 'Client' && /^https?:\/\/.+/u.test(id)) {
       this.logger.debug(`Looking for payload data at ${id}`);
       // All checks based on https://solid.github.io/authentication-panel/solid-oidc/#clientids-webid
-      if (!/^https:|^http:\/\/dipaz-solid.online(?::\d+)?(?:\/|$)/u.test(id)) {
+      if (!/^https:|^http:\/\/127.0.0.1(?::\d+)?(?:\/|$)/u.test(id)) {
         throw new Error(`SSL is required for client_id authentication unless working locally.`);
       }
       const response = await fetch(id);
