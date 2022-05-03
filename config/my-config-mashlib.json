@@ -1,0 +1,94 @@
+{
+  "@context": "https://linkedsoftwaredependencies.org/bundles/npm/@solid/community-server/^3.0.0/components/context.jsonld",
+  "import": [
+    "files-scs:config/app/main/default.json",
+    "files-scs:config/app/init/initialize-root.json",
+    "files-scs:config/app/setup/disabled.json",
+    "files-scs:config/app/variables/default.json",
+    "files-scs:config/http/handler/default.json",
+    "files-scs:config/http/middleware/websockets.json",
+    "files-scs:config/http/server-factory/websockets.json",
+    "files-scs:config/http/static/default.json",
+    "files-scs:config/identity/access/public.json",
+    "files-scs:config/identity/email/default.json",
+    "files-scs:config/identity/handler/default.json",
+    "files-scs:config/identity/ownership/token.json",
+    "files-scs:config/identity/pod/static.json",
+    "files-scs:config/identity/registration/enabled.json",
+    "files-scs:config/ldp/authentication/dpop-bearer.json",
+    "files-scs:config/ldp/authorization/webacl.json",
+    "files-scs:config/ldp/handler/default.json",
+    "files-scs:config/ldp/metadata-parser/default.json",
+    "files-scs:config/ldp/metadata-writer/default.json",
+    "files-scs:config/ldp/modes/default.json",
+    "files-scs:config/storage/backend/memory.json",
+    "files-scs:config/storage/key-value/resource-store.json",
+    "files-scs:config/storage/middleware/default.json",
+    "files-scs:config/util/auxiliary/acl.json",
+    "files-scs:config/util/identifiers/suffix.json",
+    
+    "files-scs:config/util/logging/winston.json",
+    "files-scs:config/util/representation-conversion/default.json",
+    "files-scs:config/util/resource-locker/memory.json",
+    "files-scs:config/util/variables/default.json"
+  ],
+  "@graph": [
+    {
+      "comment": [
+        "An example of what a config could look like if HTTPS is required.",
+        "The http/server-factory import above has been omitted since that feature is set below."
+      ]
+    },
+    {
+      "comment": "The key/cert values should be replaces with paths to the correct files. The 'options' block can be removed if not needed.",
+      "@id": "urn:solid-server:default:ServerFactory",
+      "@type": "WebSocketServerFactory",
+      "baseServerFactory": {
+        "@id": "urn:solid-server:default:HttpServerFactory",
+        "@type": "BaseHttpServerFactory",
+        "handler": { "@id": "urn:solid-server:default:HttpHandler" },
+        "options_showStackTrace": { "@id": "urn:solid-server:default:variable:showStackTrace" },
+        "options_https": true,
+        "options_key": "/certs/privkey.pem",
+        "options_cert": "/certs/fullchain.pem"
+      },
+      "webSocketHandler": {
+        "@type": "UnsecureWebSocketsProtocol",
+        "source": { "@id": "urn:solid-server:default:ResourceStore" }
+      }
+    },
+    {
+      "comment": "Serve Databrowser as default representation",
+      "@id": "urn:solid-server:default:DefaultUiConverter",
+      "@type": "ConstantConverter",
+      "contentType": "text/html",
+      "filePath": "./node_modules/mashlib/dist/databrowser.html",
+      "options_container": true,
+      "options_document": true,
+      "options_minQuality": 1,
+      "options_disabledMediaRanges": [
+        "image/*",
+        "application/pdf"
+      ]
+    },
+    {
+      "comment": "Serve Mashlib static files.",
+      "@id": "urn:solid-server:default:StaticAssetHandler",
+      "@type": "StaticAssetHandler",
+      "assets": [
+        {
+          "StaticAssetHandler:_assets_key": "/mash.css",
+          "StaticAssetHandler:_assets_value": "./node_modules/mashlib/dist/mash.css"
+        },
+        {
+          "StaticAssetHandler:_assets_key": "/mashlib.min.js",
+          "StaticAssetHandler:_assets_value": "./node_modules/mashlib/dist/mashlib.min.js"
+        },
+        {
+          "StaticAssetHandler:_assets_key": "/mashlib.min.js.map",
+          "StaticAssetHandler:_assets_value": "./node_modules/mashlib/dist/mashlib.min.js.map"
+        }
+      ]
+    }
+  ]
+}
