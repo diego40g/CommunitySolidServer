@@ -21,12 +21,12 @@
     "files-scs:config/ldp/metadata-parser/default.json",
     "files-scs:config/ldp/metadata-writer/default.json",
     "files-scs:config/ldp/modes/default.json",
-    "files-scs:config/storage/backend/memory.json",
+    "files-scs:config/storage/backend/file.json",
     "files-scs:config/storage/key-value/resource-store.json",
     "files-scs:config/storage/middleware/default.json",
     "files-scs:config/util/auxiliary/acl.json",
     "files-scs:config/util/identifiers/suffix.json",
-    
+
     "files-scs:config/util/logging/winston.json",
     "files-scs:config/util/representation-conversion/default.json",
     "files-scs:config/util/resource-locker/memory.json",
