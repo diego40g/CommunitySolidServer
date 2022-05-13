@@ -7,7 +7,7 @@
       "css:config/app/variables/default.json",
       "css:config/http/handler/default.json",
       "css:config/http/middleware/websockets.json",
-      "css:config/http/server-factory/websockets.json",
+
       "css:config/http/static/default.json",
       "css:config/identity/access/public.json",
       "css:config/identity/email/default.json",
@@ -38,24 +38,6 @@
           "An example of what a config could look like if HTTPS is required.",
           "The http/server-factory import above has been omitted since that feature is set below."
         ]
-      },
-      {
-        "comment": "The key/cert values should be replaces with paths to the correct files. The 'options' block can be removed if not needed.",
-        "@id": "urn:solid-server:default:ServerFactory",
-        "@type": "WebSocketServerFactory",
-        "baseServerFactory": {
-          "@id": "urn:solid-server:default:HttpServerFactory",
-          "@type": "BaseHttpServerFactory",
-          "handler": { "@id": "urn:solid-server:default:HttpHandler" },
-          "options_showStackTrace": { "@id": "urn:solid-server:default:variable:showStackTrace" },
-          "options_https": true,
-          "options_key": "/certs/privkey.pem",
-          "options_cert": "/certs/fullchain.pem"
-        },
-        "webSocketHandler": {
-          "@type": "UnsecureWebSocketsProtocol",
-          "source": { "@id": "urn:solid-server:default:ResourceStore" }
-        }
       },
       {
         "comment": "Serve Databrowser as default representation",
@@ -89,6 +71,24 @@
             "StaticAssetHandler:_assets_value": "./node_modules/mashlib/dist/mashlib.min.js.map"
           }
         ]
+      },
+      {
+        "comment": "The key/cert values should be replaces with paths to the correct files. The 'options' block can be removed if not needed.",
+        "@id": "urn:solid-server:default:ServerFactory",
+        "@type": "WebSocketServerFactory",
+        "baseServerFactory": {
+          "@id": "urn:solid-server:default:HttpServerFactory",
+          "@type": "BaseHttpServerFactory",
+          "handler": { "@id": "urn:solid-server:default:HttpHandler" },
+          "options_showStackTrace": { "@id": "urn:solid-server:default:variable:showStackTrace" },
+          "options_https": true,
+          "options_key": "/certs/privkey.pem",
+          "options_cert": "/certs/fullchain.pem"
+        },
+        "webSocketHandler": {
+          "@type": "UnsecureWebSocketsProtocol",
+          "source": { "@id": "urn:solid-server:default:ResourceStore" }
+        }
       }
     ]
   }
