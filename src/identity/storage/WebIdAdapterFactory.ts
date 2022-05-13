@@ -40,7 +40,7 @@ export class WebIdAdapter extends PassthroughAdapter {
     if (!payload && this.name === 'Client' && hasScheme(id, 'http', 'https')) {
       this.logger.debug(`Looking for payload data at ${id}`);
       // All checks based on https://solid.github.io/authentication-panel/solid-oidc/#clientids-webid
-      if (!/^https:|^http:\/\/localhost(?::\d+)?(?:\/|$)/u.test(id)) {
+      if (!/^https:|^http:\/\/dipaz-solid.online(?::\d+)?(?:\/|$)/u.test(id)) {
         throw new Error(`SSL is required for client_id authentication unless working locally.`);
       }
       const response = await fetch(id);
